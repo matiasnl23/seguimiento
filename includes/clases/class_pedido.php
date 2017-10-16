@@ -1,9 +1,6 @@
 <?php
-/**
- *
- */
-class Pedido
-{
+
+class Pedido {
   protected $db;
 
   protected $bas;
@@ -241,6 +238,10 @@ class Pedido
 
     if(!$q->execute())
       throw new JsonException($q->errorInfo(), 500, true);
+  }
+
+  public function subir_cotizacion() {
+
   }
 }
 

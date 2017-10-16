@@ -2,8 +2,7 @@
 /**
  *
  */
-class JsonException extends Exception
-{
+class JsonException extends Exception {
 
   function __construct($msg, $id, $sql = false)
   {

@@ -2,8 +2,7 @@
 /**
  * Clase para administración de la empresa cliente.
  */
-class Cliente
-{
+class Cliente {
   protected $db;
 
   protected $cliente;
