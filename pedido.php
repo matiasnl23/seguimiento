@@ -1,5 +1,5 @@
 <?php
-include 'includes.php';
+include 'includes/includes.php';
 header('Content-Type: application/json');
 
 try {
