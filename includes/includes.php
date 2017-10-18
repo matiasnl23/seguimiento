@@ -19,6 +19,8 @@ define('REGEX_NOMBRE', array(
   '/^[a-záéíóúÁÉÍÓÚ]+\s[a-záéíóúÁÉÍÓÚ]+\s[a-záéíóúÁÉÍÓÚ]+\s[a-záéíóúÁÉÍÓÚ]+$/i'
 ));
 
+define('REGEX_CATEGORIA', '/^[\w\sáéíóúÁÉÍÓÚ]+$/i');
+
 define('COTIZACION_PATH', 'cotizaciones/');
 define('OC_PATH', 'oc/');
 ?>
