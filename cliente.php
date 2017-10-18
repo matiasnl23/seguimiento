@@ -6,28 +6,38 @@ try {
   $link = new DB;
   $cliente = new Cliente($link);
 
+  $editar = false;
+  $busqueda = false;
+
   if(isset($_POST['id'])) {
-
     $id = $_POST['id'];
-
     $cliente->buscar($id);
+
+    $busqueda = true;
   }
 
-  if(isset($_POST['nombre']))
+  if(isset($_POST['nombre'])) {
     $cliente->setNombre($_POST['nombre']);
-  if(isset($_POST['domicilio']))
+    $editar = true;
+  }
+  if(isset($_POST['domicilio'])) {
     $cliente->setDomicilio($_POST['domicilio']);
-  if(isset($_POST['aliases']))
+    $editar = true;
+  }
+  if(isset($_POST['aliases'])) {
     $cliente->setAliases($_POST['aliases']);
+    $editar = true;
+  }
 
-  if(isset($_POST['nombre']) || isset($_POST['domicilio']) || isset($_POST['aliases'])) {
-
+  if($editar) {
     $cliente->guardar();
   }
 
-  echo json_encode($cliente->detalles());
-
-
+  if($busqueda || $editar) {
+    echo json_encode($cliente->detalles());
+  } else {
+    echo json_encode($cliente->buscarTodos());
+  }
 } catch (JsonException $e) {
   $e->getJson();
 }

@@ -6,27 +6,40 @@ try {
   $db = new DB;
   $pedido = new Pedido($db);
 
+  $editar = false;
+  $busqueda = false;
+
   if(isset($_POST['id'])) {
-
     $id = $_POST['id'];
-
     $pedido->buscar($id);
+
+    $busqueda = true;
   }
 
   if(isset($_POST['usuarioID']))
     $pedido->setUsuario($_POST['usuarioID']);
 
-  if(isset($_POST['clienteID']))
+  if(isset($_POST['clienteID'])) {
     $pedido->setCliente($_POST['clienteID']);
-  if(isset($_POST['contactoID']))
+    $editar = true;
+  }
+  if(isset($_POST['contactoID'])) {
     $pedido->setContacto($_POST['contactoID']);
-  if(isset($_POST['categoriaID']))
+    $editar = true;
+  }
+  if(isset($_POST['categoriaID'])) {
     $pedido->setCategoria($_POST['categoriaID']);
+    $editar = true;
+  }
 
-  if(isset($_POST['titulo']))
+  if(isset($_POST['titulo'])) {
     $pedido->setTitulo($_POST['titulo']);
-  if(isset($_POST['descripcion']))
+    $editar = true;
+  }
+  if(isset($_POST['descripcion'])) {
     $pedido->setDescripcion($_POST['descripcion']);
+    $editar = true;
+  }
 
   if(isset($_POST['responsableID']))
     $pedido->setResponsable($_POST['responsableID']);
@@ -49,11 +62,15 @@ try {
     }
   }
 
-  if(isset($_POST['clienteID']) || isset($_POST['clienteID']) || isset($_POST['contactoID']) || isset($_POST['categoriaID']) || isset($_POST['titulo']) || isset($_POST['descripcion'])) {
+  if($editar) {
     $pedido->guardar();
   }
 
-  echo json_encode($pedido->detalles());
+  if($busqueda || $editar) {
+    echo json_encode($pedido->detalles());
+  } else {
+    echo json_encode($pedido->buscarTodos());
+  }
 
 
 } catch (JsonException $e) {

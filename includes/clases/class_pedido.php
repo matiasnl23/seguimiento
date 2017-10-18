@@ -43,6 +43,16 @@ class Pedido {
 
     $this->pedido = $q->fetch(PDO::FETCH_ASSOC);
   }
+  public function buscarTodos() {
+    $q = $this->db->prepare('SELECT * FROM tblPedidos');
+    if(!$q->execute())
+      throw new JsonException($q->errorInfo(), 500, true);
+
+    if($q->rowCount()<1)
+      throw new JsonException("No se ha encontrado ningun pedido.", 404);
+
+    return $q->fetchAll(PDO::FETCH_ASSOC);
+  }
 
   public function setCliente($a) {
     // $a = strtoupper($a);

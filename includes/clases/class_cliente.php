@@ -32,6 +32,16 @@ class Cliente {
 
     $this->cliente = $q->fetch(PDO::FETCH_ASSOC);
   }
+  public function buscarTodos() {
+    $q = $this->db->prepare('SELECT * FROM tblClientes');
+    if(!$q->execute())
+      throw new JsonException($q->errorInfo(), 500, true);
+
+    if($q->rowCount()<1)
+      throw new JsonException("No se ha encontrado ningun cliente.", 404);
+
+    return $q->fetchAll(PDO::FETCH_ASSOC);
+  }
 
   public function setNombre($a) {
     $a = strtoupper($a);
